@@ -2,6 +2,9 @@
   "mainnet": {
     "Contract": {
       "address": "0xbddE35780e3986a47e54a580017d8213f0D2bB84"
+    },
+    "Contract1": {
+      "address": "0xCf1f5270916E41f5cf4221F68798438c3E5404E6"
     }
   }
 }

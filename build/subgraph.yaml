@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Contract
@@ -18,21 +18,21 @@ dataSources:
         - Trade
       abis:
         - name: Contract
-          file: ./abis/Contract.json
+          file: Contract/abis/Contract.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: Contract/abis/ERC20.json
         - name: ERC20SymbolBytes
-          file: ./abis/ERC20SymbolBytes.json
+          file: Contract/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
-          file: ./abis/ERC20NameBytes.json
+          file: Contract/abis/ERC20NameBytes.json
         - name: ChainLink
-          file: ./abis/ChainLink.json
+          file: Contract/abis/ChainLink.json
         - name: AggregatorV3Interface
-          file: ./abis/AggregatorV3Interface.json
+          file: Contract/abis/AggregatorV3Interface.json
       eventHandlers:
         - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
           handler: handleTrade
-      file: ./src/mapping.ts
+      file: Contract/Contract.wasm
   - kind: ethereum
     name: Contract1
     network: mainnet
@@ -49,18 +49,18 @@ dataSources:
         - Trade
       abis:
         - name: Contract
-          file: ./abis/Contract.json
+          file: Contract1/abis/Contract.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: Contract1/abis/ERC20.json
         - name: ERC20SymbolBytes
-          file: ./abis/ERC20SymbolBytes.json
+          file: Contract1/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
-          file: ./abis/ERC20NameBytes.json
+          file: Contract1/abis/ERC20NameBytes.json
         - name: ChainLink
-          file: ./abis/ChainLink.json
+          file: Contract1/abis/ChainLink.json
         - name: AggregatorV3Interface
-          file: ./abis/AggregatorV3Interface.json
+          file: Contract1/abis/AggregatorV3Interface.json
       eventHandlers:
         - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
           handler: handleTrade
-      file: ./src/mapping.ts
+      file: Contract/Contract.wasm
