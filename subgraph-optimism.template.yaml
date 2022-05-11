@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Contract 
-    network: mainnet
+    network: optimism
     source:
       address: "{{address1}}"
       abi: Contract
@@ -35,7 +35,7 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum
     name: Contract1 
-    network: mainnet
+    network: optimism
     source:
       address: "{{address2}}"
       abi: Contract
