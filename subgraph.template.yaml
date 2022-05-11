@@ -14,8 +14,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -45,8 +45,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -76,8 +76,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -107,8 +107,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -138,8 +138,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -169,8 +169,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -200,8 +200,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -231,8 +231,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
@@ -262,8 +262,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - OwnershipTransferred
-        - Trade
+        - Market
+        - Token
       abis:
         - name: Contract
           file: ./abis/Contract.json
