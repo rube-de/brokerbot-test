@@ -1,0 +1,283 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract #DAKS
+    network: mainnet
+    source:
+      address: "0xbddE35780e3986a47e54a580017d8213f0D2bB84"
+      abi: Contract
+      startBlock: 12544441
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract1 #TBOS
+    network: mainnet
+    source:
+      address: "0xCf1f5270916E41f5cf4221F68798438c3E5404E6"
+      abi: Contract
+      startBlock: 13050778
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract2 # quitt old
+    network: mainnet
+    source:
+      address: "0x51C6EF4D909Cd3933E8B73734AF9Ee87AA745771"
+      abi: Contract
+      startBlock: 12589859
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract3 #DGCS
+    network: mainnet
+    source:
+      address: "0xFA1A2e457484aD9b991c035e718ee23d45049428"
+      abi: Contract
+      startBlock: 12650521
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract4 #BOSS
+    network: mainnet
+    source:
+      address: "0xe634160eeb1e5667621b4fe328E89D9Cb905235E"
+      abi: Contract
+      startBlock: 12813303 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract5 #Swissshore
+    network: mainnet
+    source:
+      address: "0x82B26de8227E23014c6F29f7fBbc20EE8BE794A9"
+      abi: Contract
+      startBlock: 14202384 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract6 #VEDA
+    network: mainnet
+    source:
+      address: "0x2ffd9AD26E0440970B74e02116102080D3e0Acb9"
+      abi: Contract
+      startBlock: 13183835 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract7 #Aydea
+    network: mainnet
+    source:
+      address: "0xbe2057bAC4157Bba00759f61dacB08A64F703C2d"
+      abi: Contract
+      startBlock: 14202564 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Contract8 #quitt new
+    network: mainnet
+    source:
+      address: "0x1abD8b5194D733691D64c3F898300f88Ba0035d5"
+      abi: Contract
+      startBlock: 14412543
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - Trade
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ChainLink
+          file: ./abis/ChainLink.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
+      eventHandlers:
+        - event: Trade(indexed address,address,bytes,int256,address,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./src/mapping.ts
