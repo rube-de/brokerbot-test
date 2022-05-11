@@ -9,8 +9,6 @@
     "remove-local": "graph remove --node http://localhost:8020/ rube-de/brokerbot",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 rube-de/brokerbot",
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:mainnet1": "mustache config/mainnet1.yaml config/subgraph1.template.mustache > subgraph.yaml",
-    "prepare:data": "mustache config/mainnet1.yaml config/dataSource.mustache > data.yaml",
     "prepare:optimism": "mustache config/optimism.json subgraph-optimism.template.yaml > subgraph.yaml"
   },
   "dependencies": {
