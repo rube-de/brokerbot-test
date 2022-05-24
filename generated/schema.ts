@@ -22,6 +22,8 @@ export class Registry extends Entity {
     this.set("totalVolumeXCHF", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("totalValueLockedUSD", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("totalValueLockedXCHF", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("totalRaisedXCHF", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("totalRaisedUSD", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("owner", Value.fromString(""));
   }
 
@@ -102,6 +104,24 @@ export class Registry extends Entity {
 
   set totalValueLockedXCHF(value: BigDecimal) {
     this.set("totalValueLockedXCHF", Value.fromBigDecimal(value));
+  }
+
+  get totalRaisedXCHF(): BigDecimal {
+    let value = this.get("totalRaisedXCHF");
+    return value!.toBigDecimal();
+  }
+
+  set totalRaisedXCHF(value: BigDecimal) {
+    this.set("totalRaisedXCHF", Value.fromBigDecimal(value));
+  }
+
+  get totalRaisedUSD(): BigDecimal {
+    let value = this.get("totalRaisedUSD");
+    return value!.toBigDecimal();
+  }
+
+  set totalRaisedUSD(value: BigDecimal) {
+    this.set("totalRaisedUSD", Value.fromBigDecimal(value));
   }
 
   get owner(): string {
@@ -265,8 +285,8 @@ export class Market extends Entity {
     this.set("volumeToken", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("volumeUSD", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
-    this.set("createdAtTimestamp", Value.fromBigInt(BigInt.zero()));
-    this.set("createdAtBlockNumber", Value.fromBigInt(BigInt.zero()));
+    this.set("totalRaisedXCHF", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("totalRaisedUSD", Value.fromBigDecimal(BigDecimal.zero()));
   }
 
   save(): void {
@@ -411,22 +431,22 @@ export class Market extends Entity {
     this.set("txCount", Value.fromBigInt(value));
   }
 
-  get createdAtTimestamp(): BigInt {
-    let value = this.get("createdAtTimestamp");
-    return value!.toBigInt();
+  get totalRaisedXCHF(): BigDecimal {
+    let value = this.get("totalRaisedXCHF");
+    return value!.toBigDecimal();
   }
 
-  set createdAtTimestamp(value: BigInt) {
-    this.set("createdAtTimestamp", Value.fromBigInt(value));
+  set totalRaisedXCHF(value: BigDecimal) {
+    this.set("totalRaisedXCHF", Value.fromBigDecimal(value));
   }
 
-  get createdAtBlockNumber(): BigInt {
-    let value = this.get("createdAtBlockNumber");
-    return value!.toBigInt();
+  get totalRaisedUSD(): BigDecimal {
+    let value = this.get("totalRaisedUSD");
+    return value!.toBigDecimal();
   }
 
-  set createdAtBlockNumber(value: BigInt) {
-    this.set("createdAtBlockNumber", Value.fromBigInt(value));
+  set totalRaisedUSD(value: BigDecimal) {
+    this.set("totalRaisedUSD", Value.fromBigDecimal(value));
   }
 }
 

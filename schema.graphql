@@ -13,6 +13,9 @@ type Registry @entity {
   totalValueLockedUSD: BigDecimal!
   # TVL in XCHF
   totalValueLockedXCHF: BigDecimal!
+  # raised
+  totalRaisedXCHF: BigDecimal!
+  totalRaisedUSD: BigDecimal!
 
   # current owner of the registry
   owner: ID!
@@ -68,9 +71,9 @@ type Market @entity {
   volumeUSD: BigDecimal!
   txCount: BigInt!
 
-  # creation stats
-  createdAtTimestamp: BigInt!
-  createdAtBlockNumber: BigInt!
+  # raised
+  totalRaisedXCHF: BigDecimal!
+  totalRaisedUSD: BigDecimal!
 }
 
 type Transaction @entity {

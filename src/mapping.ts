@@ -1,9 +1,7 @@
-import { Address, BigDecimal, log} from "@graphprotocol/graph-ts"
+import { Address, log} from "@graphprotocol/graph-ts"
 import {
-  Contract,
-  OwnershipTransferred,
   Trade
-} from "../generated/Contract/Contract"
+} from "../generated/Brokerbot/Brokerbot"
 import {   
   Registry,
   Market,
@@ -24,32 +22,25 @@ import {
   convertToUsd,
   REGISTRY_ADDRESS,
   OWNER_ADDRESS,
-  ONE_BD
+  ONE_BD,
+  getRegistry
 } from './helpers'
 
 export function handleTrade(event: Trade): void {
-  let registry = Registry.load(REGISTRY_ADDRESS)
-  if (registry === null) {
-    registry = new Registry(REGISTRY_ADDRESS)
-    registry.owner = OWNER_ADDRESS
-    registry.marketCount = ZERO_BI
-    registry.txCount = ZERO_BI
-    registry.totalValueLockedUSD = ZERO_BD
-    registry.totalValueLockedXCHF = ZERO_BD
-    registry.totalVolumeUSD = ZERO_BD
-    registry.totalVolumeXCHF = ZERO_BD
-  }
+  // load registry
+  let registry = getRegistry(REGISTRY_ADDRESS.toHexString())
+
+  // load market
   const MARKET_ADDRESS = event.address.toHexString()
-  log.warning("market address: {} ", [MARKET_ADDRESS])
   let market = Market.load(MARKET_ADDRESS)
   if (market === null) {
     market = new Market(MARKET_ADDRESS)
     market.base = event.params.base.toHexString()
     market.token = event.params.token.toHexString()
     registry.marketCount = registry.marketCount.plus(ONE_BI)
-
   }
-  //create the tokens
+
+  // load the tokens
   let base = Token.load(market.base)
   let token = Token.load(market.token)
 
@@ -85,28 +76,30 @@ export function handleTrade(event: Trade): void {
   
   let amountBase = convertTokenToDecimal(event.params.totPrice, base.decimals)
   let amountToken = convertTokenToDecimal(event.params.amount.abs(), token.decimals)
-  let amountUSD = convertToUsd(event.params.base, amountBase)
+  let amountUSD = convertToUsd(base.id, amountBase)
 
   // reset total liquidity amounts
   base.totalValueLocked = base.totalValueLocked.minus(market.reserveBase)
   token.totalValueLocked = token.totalValueLocked.minus(market.reserveToken)
   registry.totalValueLockedXCHF = registry.totalValueLockedXCHF.minus(market.totalValueLockedXCHF)
+  registry.totalRaisedXCHF = registry.totalRaisedXCHF.minus(market.totalRaisedXCHF)
+  registry.totalRaisedUSD = registry.totalRaisedUSD.minus(market.totalRaisedUSD)
 
   // get current market balance
-  let marketBaseBalance  = convertTokenToDecimal(fetchTokenBalance(event.params.base, Address.fromString(MARKET_ADDRESS)), base.decimals)
-  let marketTokenBalance = convertTokenToDecimal(fetchTokenBalance(event.params.token, Address.fromString(MARKET_ADDRESS)), token.decimals)
+  let marketBaseBalance  = convertTokenToDecimal(fetchTokenBalance(event.params.base, Address.fromString(market.id)), base.decimals)
+  let marketTokenBalance = convertTokenToDecimal(fetchTokenBalance(event.params.token, Address.fromString(market.id)), token.decimals)
 
   // update base global volume and token liquidity stats
   base.tradeVolume = base.tradeVolume.plus(amountBase)
   base.tradeVolumeUSD = base.tradeVolumeUSD.plus(amountUSD)
   base.totalValueLocked = base.totalValueLocked.plus(marketBaseBalance)
-  base.totalValueLockedUSD = convertToUsd(event.params.base, base.totalValueLocked)
+  base.totalValueLockedUSD = convertToUsd(base.id, base.totalValueLocked)
 
   // update token global volume and token liquidity stats
   token.tradeVolume = token.tradeVolume.plus(amountToken)
   token.tradeVolumeUSD = base.tradeVolumeUSD.plus(amountUSD)
   token.totalValueLocked = token.totalValueLocked.plus(marketTokenBalance)
-  token.totalValueLockedUSD = convertToUsd(event.params.token, amountToken)
+  token.totalValueLockedUSD = convertToUsd(base.id, token.totalValueLocked.times(market.basePrice))
 
   // update txn counts
   base.txCount = base.txCount.plus(ONE_BI)
@@ -123,14 +116,20 @@ export function handleTrade(event: Trade): void {
   market.basePrice = convertTokenToDecimal(event.params.newprice, base.decimals)
   market.tokenPrice = ONE_BD.div(market.basePrice)
   market.totalValueLockedXCHF = marketBaseBalance.plus(marketTokenBalance.times(market.basePrice))
-  market.totalValueLockedUSD = convertToUsd(event.params.base, market.totalValueLockedXCHF)
+  market.totalValueLockedUSD = convertToUsd(base.id, market.totalValueLockedXCHF)
+  if (event.params.amount > ZERO_BI) {
+    market.totalRaisedXCHF = market.totalRaisedXCHF.plus(amountBase)
+    market.totalRaisedUSD = market.totalRaisedUSD.plus(convertToUsd(base.id, amountBase))
+  }
   
   // update data of registry
   registry.txCount = registry.txCount.plus(ONE_BI)
   registry.totalVolumeXCHF = registry.totalVolumeXCHF.plus(amountBase)
-  registry.totalVolumeUSD = convertToUsd(event.params.base, registry.totalVolumeXCHF)
+  registry.totalVolumeUSD = convertToUsd(base.id, registry.totalVolumeXCHF)
   registry.totalValueLockedXCHF = registry.totalValueLockedXCHF.plus(market.totalValueLockedXCHF)
-  registry.totalValueLockedUSD = convertToUsd(event.params.base, registry.totalValueLockedXCHF)
+  registry.totalValueLockedUSD = convertToUsd(base.id, registry.totalValueLockedXCHF)
+  registry.totalRaisedXCHF = registry.totalRaisedXCHF.plus(market.totalRaisedXCHF)
+  registry.totalRaisedUSD = registry.totalRaisedUSD.plus(market.totalRaisedUSD)
 
   // save entities
   registry.save()
@@ -160,18 +159,12 @@ export function handleTrade(event: Trade): void {
   swap.amountUSD = amountUSD
   swap.newPriceBase = convertTokenToDecimal(event.params.newprice, base.decimals)
   swap.avgPriceBase = convertTokenToDecimal(event.params.totPrice.div(event.params.amount.abs()), base.decimals)
-  swap.newPriceUSD = convertToUsd(event.params.base, swap.newPriceBase)
-  swap.avgPriceUSD = convertToUsd(event.params.base, swap.avgPriceBase)
+  swap.newPriceUSD = convertToUsd(base.id, swap.newPriceBase)
+  swap.avgPriceUSD = convertToUsd(base.id, swap.avgPriceBase)
   swap.logIndex = event.logIndex
-  // use the tracked amount if we have it
-  //swap.amountUSD = trackedAmountUSD === ZERO_BD ? derivedAmountUSD : trackedAmountUSD
   swap.save()
 
   // update the transaction
-
-  // TODO: Consider using .concat() for handling array updates to protect
-  // against unintended side effects for other code paths.
-  //swaps.push(swap.id)
   transaction.swap = swap.id
   transaction.save()
 
